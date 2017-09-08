@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class StateMachine : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class StateMachine : MonoBehaviour
         set { Transition(value); }
     }
     protected State _currentState;
-
     protected bool _inTransition;
 
     public virtual T GetState<T>() where T : State
@@ -23,10 +23,12 @@ public class StateMachine : MonoBehaviour
     {
         CurrentState = GetState<T>();
     }
+
     protected virtual void Transition(State value)
     {
         if (_currentState == value || _inTransition)
             return;
+
         _inTransition = true;
 
         if (_currentState != null)
