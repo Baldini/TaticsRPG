@@ -2,45 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActionSelectionState : BaseAbilityMenuState
-{
+public class ActionSelectionState : BaseAbilityMenuState {
     public static int category;
     string[] whiteMagicOptions = new string[] { "Cure", "Raise", "Holy" };
     string[] blackMagicOptions = new string[] { "Fire", "Ice", "Lightning" };
-    protected override void Cancel()
-    {
-        owner.ChangeState<CategorySelectionState>();
+
+    public override void Enter () {
+        base.Enter ();
+        statPanelController.ShowPrimary (turn.actor.gameObject);
+    }
+    public override void Exit () {
+        base.Exit ();
+        statPanelController.HidePrimary ();
+    }
+    protected override void Cancel () {
+        owner.ChangeState<CategorySelectionState> ();
     }
 
-    protected override void Confirm()
-    {
+    protected override void Confirm () {
         turn.hasUnitActed = true;
         if (turn.hasUnitMoved)
             turn.lockMove = true;
-        owner.ChangeState<CommandSelectionState>();
+        owner.ChangeState<CommandSelectionState> ();
     }
 
-    protected override void LoadMenu()
-    {
+    protected override void LoadMenu () {
         if (menuOptions == null)
-            menuOptions = new List<string>(3);
-        if (category == 0)
-        {
+            menuOptions = new List<string> (3);
+        if (category == 0) {
             menuTitle = "White Magic";
-            SetOptions(whiteMagicOptions);
-        }
-        else
-        {
+            SetOptions (whiteMagicOptions);
+        } else {
             menuTitle = "Black Magic";
-            SetOptions(blackMagicOptions);
+            SetOptions (blackMagicOptions);
         }
-        abilityMenuPanelController.Show(menuTitle, menuOptions);
+        abilityMenuPanelController.Show (menuTitle, menuOptions);
     }
 
-    void SetOptions(string[] options)
-    {
-        menuOptions.Clear();
+    void SetOptions (string[] options) {
+        menuOptions.Clear ();
         for (int i = 0; i < options.Length; ++i)
-            menuOptions.Add(options[i]);
+            menuOptions.Add (options[i]);
     }
 }
