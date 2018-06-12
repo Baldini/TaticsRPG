@@ -1,9 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CommandSelectionState : BaseAbilityMenuState {
-    
+
     public override void Enter () {
         base.Enter ();
         statPanelController.ShowPrimary (turn.actor.gameObject);
@@ -31,7 +31,7 @@ public class CommandSelectionState : BaseAbilityMenuState {
                 owner.ChangeState<CategorySelectionState> ();
                 break;
             case 2: // Wait
-                owner.ChangeState<SelectUnitState> ();
+                owner.ChangeState<EndFacingState> ();
                 break;
         }
     }

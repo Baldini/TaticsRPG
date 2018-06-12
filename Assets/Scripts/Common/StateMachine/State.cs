@@ -1,26 +1,17 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-
-public abstract class State : MonoBehaviour
-{
-    public virtual void Enter()
-    {
-        AddListeners();
+public abstract class State : MonoBehaviour {
+    public virtual void Enter () {
+        AddListeners ();
     }
 
-    public virtual void Exit()
-    {
-        RemoveListeners();
+    public virtual void Exit () {
+        RemoveListeners ();
     }
-    protected virtual void OnDestroy()
-    {
-        RemoveListeners();
+    protected virtual void OnDestroy () {
+        RemoveListeners ();
     }
-    protected virtual void AddListeners()
-    {
-    }
+    protected virtual void AddListeners () { }
 
-    protected virtual void RemoveListeners()
-    {
-    }
+    protected virtual void RemoveListeners () { }
 }

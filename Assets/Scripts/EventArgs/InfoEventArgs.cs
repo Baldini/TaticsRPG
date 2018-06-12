@@ -1,17 +1,14 @@
-﻿using System;
+using System;
 
-public class InfoEventArgs<T> : EventArgs
-{
+public class InfoEventArgs<T> : EventArgs {
 
     public T info;
 
-    public InfoEventArgs()
-    {
-        info = default(T);
+    public InfoEventArgs () {
+        info = default (T);
     }
 
-    public InfoEventArgs(T info)
-    {
+    public InfoEventArgs (T info) {
         this.info = info;
     }
 }

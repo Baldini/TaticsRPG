@@ -1,7 +1,6 @@
-﻿using UnityEngine;
 using System.Collections;
-public enum StatTypes
-{
+using UnityEngine;
+public enum StatTypes {
     LVL,
     EXP,
     HP,

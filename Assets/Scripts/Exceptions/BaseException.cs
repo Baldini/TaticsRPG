@@ -1,18 +1,15 @@
-﻿using UnityEngine;
 using System.Collections;
-public class BaseException
-{
+using UnityEngine;
+public class BaseException {
     public bool toggle { get; private set; }
     private bool defaultToggle;
 
-    public BaseException(bool defaultToggle)
-    {
+    public BaseException (bool defaultToggle) {
         this.defaultToggle = defaultToggle;
         toggle = defaultToggle;
     }
 
-    public void FlipToggle()
-    {
+    public void FlipToggle () {
         toggle = !defaultToggle;
     }
 }

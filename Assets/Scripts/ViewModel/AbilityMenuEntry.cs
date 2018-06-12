@@ -1,13 +1,11 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class AbilityMenuEntry : MonoBehaviour
-{
+public class AbilityMenuEntry : MonoBehaviour {
     #region Enums
     [System.Flags]
-    enum States
-    {
+    enum States {
         None = 0,
         Selected = 1 << 0,
         Locked = 1 << 1
@@ -15,17 +13,14 @@ public class AbilityMenuEntry : MonoBehaviour
     #endregion
 
     #region Properties
-    public string Title
-    {
+    public string Title {
         get { return label.text; }
         set { label.text = value; }
     }
 
-    public bool IsLocked
-    {
+    public bool IsLocked {
         get { return (State & States.Locked) != States.None; }
-        set
-        {
+        set {
             if (value)
                 State |= States.Locked;
             else
@@ -33,11 +28,9 @@ public class AbilityMenuEntry : MonoBehaviour
         }
     }
 
-    public bool IsSelected
-    {
+    public bool IsSelected {
         get { return (State & States.Selected) != States.None; }
-        set
-        {
+        set {
             if (value)
                 State |= States.Selected;
             else
@@ -45,32 +38,25 @@ public class AbilityMenuEntry : MonoBehaviour
         }
     }
 
-    States State
-    {
+    States State {
         get { return state; }
-        set
-        {
+        set {
             if (state == value)
                 return;
             state = value;
 
-            if (IsLocked)
-            {
+            if (IsLocked) {
                 bullet.sprite = disabledSprite;
                 label.color = Color.gray;
-                outline.effectColor = new Color32(20, 36, 44, 255);
-            }
-            else if (IsSelected)
-            {
+                outline.effectColor = new Color32 (20, 36, 44, 255);
+            } else if (IsSelected) {
                 bullet.sprite = selectedSprite;
-                label.color = new Color32(249, 210, 118, 255);
-                outline.effectColor = new Color32(255, 160, 72, 255);
-            }
-            else
-            {
+                label.color = new Color32 (249, 210, 118, 255);
+                outline.effectColor = new Color32 (255, 160, 72, 255);
+            } else {
                 bullet.sprite = normalSprite;
                 label.color = Color.white;
-                outline.effectColor = new Color32(20, 36, 44, 255);
+                outline.effectColor = new Color32 (20, 36, 44, 255);
             }
         }
     }
@@ -85,15 +71,13 @@ public class AbilityMenuEntry : MonoBehaviour
     #endregion
 
     #region MonoBehaviour
-    void Awake()
-    {
-        outline = label.GetComponent<Outline>();
+    void Awake () {
+        outline = label.GetComponent<Outline> ();
     }
     #endregion
 
     #region Public
-    public void Reset()
-    {
+    public void Reset () {
         State = States.None;
     }
     #endregion

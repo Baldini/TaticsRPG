@@ -1,8 +1,7 @@
-﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-public class Equippable : MonoBehaviour
-{
+using UnityEngine;
+public class Equippable : MonoBehaviour {
     #region Fields
     public EquipSlots defaultSlots;
     public EquipSlots secondarySlots;
@@ -10,23 +9,21 @@ public class Equippable : MonoBehaviour
     bool _isEquipped;
     #endregion
     #region Public
-    public void OnEquip()
-    {
+    public void OnEquip () {
         if (_isEquipped)
             return;
         _isEquipped = true;
-        Feature[] features = GetComponentsInChildren<Feature>();
+        Feature[] features = GetComponentsInChildren<Feature> ();
         for (int i = 0; i < features.Length; ++i)
-            features[i].Activate(gameObject);
+            features[i].Activate (gameObject);
     }
-    public void OnUnEquip()
-    {
+    public void OnUnEquip () {
         if (!_isEquipped)
             return;
         _isEquipped = false;
-        Feature[] features = GetComponentsInChildren<Feature>();
+        Feature[] features = GetComponentsInChildren<Feature> ();
         for (int i = 0; i < features.Length; ++i)
-            features[i].Deactivate();
+            features[i].Deactivate ();
     }
     #endregion
 }

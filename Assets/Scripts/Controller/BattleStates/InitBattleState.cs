@@ -1,46 +1,52 @@
-﻿using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class InitBattleState : BattleState
-{
-    public override void Enter()
-    {
-        base.Enter();
-        StartCoroutine(Init());
+public class InitBattleState : BattleState {
+    public override void Enter () {
+        base.Enter ();
+        StartCoroutine (Init ());
     }
 
-    IEnumerator Init()
-    {
-        board.Load(levelData);
-        Point p = new Point((int)levelData.tiles[0].x, (int)levelData.tiles[0].z);
-        SelectTile(p);
-        SpawnTestUnits();
+    IEnumerator Init () {
+        board.Load (levelData);
+        Point p = new Point ((int) levelData.tiles[0].x, (int) levelData.tiles[0].z);
+        SelectTile (p);
+        SpawnTestUnits ();
         yield return null;
-        owner.ChangeState<CutSceneState>();
+        owner.ChangeState<CutSceneState> ();
     }
 
-    void SpawnTestUnits()
-    {
+    void SpawnTestUnits () {
         string[] jobs = new string[] { "Rogue", "Warrior", "Wizard" };
-        for (int i = 0; i < jobs.Length; ++i)
-        {
-            GameObject instance = Instantiate(owner.heroPrefab) as GameObject;
-            Stats s = instance.AddComponent<Stats>();
+        for (int i = 0; i < jobs.Length; ++i) {
+            GameObject instance = Instantiate (owner.heroPrefab) as GameObject;
+            Stats s = instance.AddComponent<Stats> ();
             s[StatTypes.LVL] = 1;
-            GameObject jobPrefab = Resources.Load<GameObject>("Jobs/" + jobs[i]);
-            GameObject jobInstance = Instantiate(jobPrefab) as GameObject;
-            jobInstance.transform.SetParent(instance.transform);
-            Job job = jobInstance.GetComponent<Job>();
-            job.Employ();
-            job.LoadDefaultStats();
-            Point p = new Point((int)levelData.tiles[i].x, (int)levelData.tiles[i].z);
-            Unit unit = instance.GetComponent<Unit>();
-            unit.Place(board.GetTile(p));
-            unit.Match();
-            instance.AddComponent<WalkMovement>();
-            units.Add(unit);
-            Rank rank = instance.AddComponent<Rank>();
-            rank.Init(10);
+            GameObject jobPrefab = Resources.Load<GameObject> ("Jobs/" + jobs[i]);
+            GameObject jobInstance = Instantiate (jobPrefab) as GameObject;
+            jobInstance.transform.SetParent (instance.transform);
+            Job job = jobInstance.GetComponent<Job> ();
+            job.Employ ();
+            job.LoadDefaultStats ();
+            Point p = new Point ((int) levelData.tiles[i].x, (int) levelData.tiles[i].z);
+            Unit unit = instance.GetComponent<Unit> ();
+            unit.Place (board.GetTile (p));
+            unit.Match ();
+            switch (jobs[i]) {
+                case "Wizard":
+                    instance.AddComponent<TeleportMovement> ();
+                    break;
+                case "Rogue":
+                    instance.AddComponent<FlyMovement> ();
+                    break;
+                default:
+                    instance.AddComponent<WalkMovement> ();
+                    break;
+            }
+
+            units.Add (unit);
+            Rank rank = instance.AddComponent<Rank> ();
+            rank.Init (10);
         }
     }
 }
