@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleController : StateMachine {
+    public IEnumerator round;
     public StatPanelController statPanelController;
     public CameraRig cameraRig;
     public Board board;
@@ -14,6 +16,7 @@ public class BattleController : StateMachine {
 
     public GameObject heroPrefab;
     public Tile currentTile { get { return board.GetTile (pos); } }
+
     void Start () {
         ChangeState<InitBattleState> ();
     }

@@ -5,7 +5,7 @@ public class MultValueModifier : ValueModifier {
     public MultValueModifier (int sortOrder, float toMultiply) : base (sortOrder) {
         this.toMultiply = toMultiply;
     }
-    public override float Modify (float value) {
-        return value * toMultiply;
+    public override float Modify (float fromValue, float toValue) {
+        return fromValue * toMultiply;
     }
 }

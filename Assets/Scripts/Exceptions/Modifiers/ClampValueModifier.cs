@@ -8,7 +8,8 @@ public class ClampValueModifier : ValueModifier {
         this.max = max;
     }
 
-    public override float Modify (float value) {
-        return Mathf.Clamp (value, min, max);
+    public override float Modify(float fromValue, float toValue)
+    {
+        return Mathf.Clamp (fromValue, min, max);
     }
 }

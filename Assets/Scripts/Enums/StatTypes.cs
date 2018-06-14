@@ -16,5 +16,6 @@ public enum StatTypes {
     SPD,
     MOV,
     JMP,
+    CTR,
     Count
 }
